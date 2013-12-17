@@ -38,26 +38,26 @@ var TEMPLATES = (function() {
 
 var Controller = {
   init: function() {
+    console.log(TEMPLATES.precompile(['tweet']))
     TEMPLATES.precompile(['tweet'])
     $('form').on('submit', this.showTweetsForMeme)
   },
 
   showTweetsForMeme: function(e) {
     e.preventDefault()
-    console.log("this is hit")
     $(".container .tweets").html('')
     var $form = $(event.target)
-    $.post($form.attr('action'), $form.serialize(), Controller.renderTweets(e))
+    $.post($form.attr('action'), $form.serialize(), Controller.renderTweets.bind(Controller))
   },
 
   renderTweets: function(tweets) {
-    console.log(tweets)
     for (var i in tweets) {
       TEMPLATES.render('tweet', tweets[i], this.appendTweet)
     }
   },
 
   appendTweet: function(html) {
+    console.log(html)
     $(".container .tweets").append(html)
   }
 }
