@@ -38,16 +38,19 @@ var TEMPLATES = (function() {
 
 var Controller = {
   init: function() {
+    // this == JeffreyController
     console.log(TEMPLATES.precompile(['tweet']))
     TEMPLATES.precompile(['tweet'])
-    $('form').on('submit', this.showTweetsForMeme)
+    $('form').on('submit', this.showTweetsForMeme.bind(this)) // make jQuery use the Controller for its scope
   },
 
   showTweetsForMeme: function(e) {
+    // what is this ? (form)
     e.preventDefault()
     $(".container .tweets").html('')
     var $form = $(event.target)
-    $.post($form.attr('action'), $form.serialize(), Controller.renderTweets.bind(Controller))
+    //$.post(/*url*/, /*data*/, /*callback*/)
+    $.post($form.attr('action'), $form.serialize(), this.renderTweets.bind(this))
   },
 
   renderTweets: function(tweets) {
@@ -63,5 +66,11 @@ var Controller = {
 }
 
 $(function() {
-  Controller.init()
+  var JeffreyController = new Object(Controller)
+  JeffreyController.appendTweet(html) {
+    console.log("new version!", html)
+  }
+
+
+  JeffreyController.init()
 })
