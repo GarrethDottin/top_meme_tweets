@@ -47,6 +47,7 @@ app.post('/mock-tweets-for-meme', mockTweetsForMeme)
 
 
 function tweetsForMeme(req, res) {
+  console.log("This is called TweetsForMeme")
   var meme = "#" + req.body.meme
   twitter.search({q: meme, count: 100, result_type: 'mixed'}, token, secret, function(error, data, response) {
     if (error) {
@@ -63,10 +64,11 @@ function tweetsForMeme(req, res) {
       res.setHeader('Content-Type', 'application/json')
       res.end(json)
     }
-  })  
+  })
 }
 
 function mockTweetsForMeme(req, res) {
+  console.log("This is hit")
   var topTweets = [
     { id: 410854284670955500,
       id_str: "410854284670955520",
